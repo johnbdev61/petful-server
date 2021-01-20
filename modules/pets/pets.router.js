@@ -2,16 +2,42 @@ const express = require('express')
 const json = require('body-parser').json()
 
 const Pets = require('./pets.service')
-const People = require('../people/people.service')
+const People = require('../users/users.service')
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  // Return all pets currently up for adoption.
-})
+router
+  .route('/dogs')
+  .get((req, res, next) => {
+    res.json(Pets.allDogs())
+  })
 
-router.delete('/', json, (req, res) => {
-  // Remove a pet from adoption.
-})
+router
+  .route('/dogs/next')
+  .get((req, res, next) => {
+    res.json(Pets.allDogs())
+  })
+  .delete(json, (req, res, next) => {
+    Pets.dequeue('dog')
+    People.dequeue()
+    res.status(204).end()
+  })  
+
+router
+  .route('/cats')
+  .get((req, res, next) => {
+    res.json(Pets.allCats())
+  })
+
+router
+  .route('/cats/next')
+  .get((req, res, next) => {
+    res.json(Pets.getCat())
+  })
+  .delete(json, (req, res, next) => {
+    Pets.dequeue('cat')
+    People.dequeue()
+    res.status(204).end()
+  })
 
 module.exports = router
