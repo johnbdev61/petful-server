@@ -1,7 +1,7 @@
 const express = require('express')
 const json = require('body-parser').json()
 
-const People = require('./users.service')
+const People = require('./people.service')
 
 const router = express.Router()
 

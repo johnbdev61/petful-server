@@ -6,36 +6,41 @@ const store = require('../../store')
 
 const pets = {
   cats: new Queue(),
-  dogs: new Queue()
+  dogs: new Queue(),
 }
 
-store.cats.forEach(cat => pets.cats.enqueue(cat))
-store.dogs.forEach(dog => pets.dogs.enqueue(dog))
+store.cats.forEach((cat) => pets.cats.enqueue(cat))
+store.dogs.forEach((dog) => pets.dogs.enqueue(dog))
 
 // --------------------
 
 module.exports = {
-  allDogs() {
-    return pets.dogs.all()
-  },
-  getDog() {
-    return pets.dogs.show()
-  },
-  allCats() {
-    return pets.cats.all()
-  },
   getCat() {
-    return pets.cats.show()
+    let result = {}
+    result.cat = pets.cats.show()
+    if (!result.cat) {
+      store.cats.forEach((cat) => pets.cats.enqueue(cat))
+      result.cat = pets.cats.show()
+    }
+    return result
+  },
+
+  getDog() {
+    let result = {}
+    result.dog = pets.dogs.show()
+    if (!result.dog) {
+      store.dogs.forEach((dog) => pets.dogs.enqueue(dog))
+      result.dog = pets.dogs.show()
+    }
+    return result
   },
 
   dequeue(type) {
-    if (type === 'dog') {
-      const dogs = pets.dogs.dequeue
-      pets.dogs.dequeue()
-    }
     if (type === 'cat') {
-      const cats = pets.cats.dequeue
       pets.cats.dequeue()
     }
-  }
+    if (type === 'dog') {
+      pets.dogs.dequeue()
+    }
+  },
 }

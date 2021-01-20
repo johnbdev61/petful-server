@@ -2,42 +2,27 @@ const express = require('express')
 const json = require('body-parser').json()
 
 const Pets = require('./pets.service')
-const People = require('../users/users.service')
+const People = require('../People/people.service')
 
-const router = express.Router()
+const petsRouter = express.Router()
 
-router
-  .route('/dogs')
-  .get((req, res, next) => {
-    res.json(Pets.allDogs())
-  })
+petsRouter.get('/dogs', (req, res) => {
+  res.json(Pets.getDog())
+})
 
-router
-  .route('/dogs/next')
-  .get((req, res, next) => {
-    res.json(Pets.allDogs())
-  })
-  .delete(json, (req, res, next) => {
-    Pets.dequeue('dog')
+petsRouter.get('/cats', (req, res) => {
+  res.json(Pets.getCat())
+})
+
+petsRouter.delete('/', json, (req, res) => {
+  const { type } = req.body
+  try {
+    Pets.dequeue(type)
     People.dequeue()
-    res.status(204).end()
-  })  
+  } catch (e) {
+    return res.status(400).json(e.message)
+  }
+  return res.status(202).send()
+})
 
-router
-  .route('/cats')
-  .get((req, res, next) => {
-    res.json(Pets.allCats())
-  })
-
-router
-  .route('/cats/next')
-  .get((req, res, next) => {
-    res.json(Pets.getCat())
-  })
-  .delete(json, (req, res, next) => {
-    Pets.dequeue('cat')
-    People.dequeue()
-    res.status(204).end()
-  })
-
-module.exports = router
+module.exports = petsRouter

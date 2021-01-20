@@ -1,3 +1,10 @@
+class _Node {
+  constructor(value) {
+    this.value = value
+    this.next = null
+  }
+}
+
 class Queue {
   constructor() {
     this.first = null
@@ -6,6 +13,7 @@ class Queue {
 
   enqueue(data) {
     const node = new _Node(data)
+
     if (this.first === null) {
       this.first = node
     }
@@ -21,32 +29,30 @@ class Queue {
     }
     const node = this.first
     this.first = this.first.next
+
     if (node === this.last) {
-      this.last = null
+      this.last === null
     }
     return node.value
   }
 
   show() {
-    if (this.first.value !== null) {
-      return this.first.value
+    if (!this.first) {
+      return
     }
+    return this.first.value
   }
 
   all() {
-    let currNode = queue.first
-    while (currNode !== null) {
-      currNode = curNode.next
+    const everything = []
+    let current = this.first
+
+    while (current) {
+      everything.push(current.value)
+      current = current.next
     }
-
+    return everything
   }
 }
 
-class_Node {
-  constructor(data, next) {
-    this.data = data
-    this.next = next
-  }
-}
-
-module.exports = { Queue, _Node }
+module.exports = Queue

@@ -11,16 +11,14 @@ store.people.forEach(person => people.enqueue(person))
 
 module.exports = {
   get() {
-    return this.adopters
+    return people.all
   },
 
   enqueue(person) {
     people.enqueue(person)
-    return people
   },
 
   dequeue() {
     people.dequeue()
-    return people
-  }
+  },
 }
