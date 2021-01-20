@@ -1,6 +1,6 @@
 class _Node {
-  constructor(value) {
-    this.value = value
+  constructor(data) {
+    this.data = data
     this.next = null
   }
 }
@@ -14,7 +14,7 @@ class Queue {
   enqueue(data) {
     const node = new _Node(data)
 
-    if (this.first === null) {
+    if (!this.first) {
       this.first = node
     }
     if (this.last) {
@@ -24,34 +24,32 @@ class Queue {
   }
 
   dequeue() {
-    if (this.first === null) {
+    if (!this.first) {
       return
     }
     const node = this.first
     this.first = this.first.next
-
     if (node === this.last) {
-      this.last === null
+      this.last = null
     }
-    return node.value
+    return node.data
   }
 
   show() {
     if (!this.first) {
       return
     }
-    return this.first.value
+    return this.first.data
   }
 
   all() {
-    const everything = []
-    let current = this.first
-
-    while (current) {
-      everything.push(current.value)
-      current = current.next
+    const all = []
+    let currNode = this.first
+    while (currNode) {
+      all.push(currNode.data)
+      currNode = currNode.next
     }
-    return everything
+    return all
   }
 }
 

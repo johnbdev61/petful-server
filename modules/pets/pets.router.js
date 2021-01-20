@@ -4,17 +4,13 @@ const json = require('body-parser').json()
 const Pets = require('./pets.service')
 const People = require('../People/people.service')
 
-const petsRouter = express.Router()
+const router = express.Router()
 
-petsRouter.get('/dogs', (req, res) => {
-  res.json(Pets.getDog())
+router.get('/', (req, res) => {
+  res.json(Pets.get())
 })
 
-petsRouter.get('/cats', (req, res) => {
-  res.json(Pets.getCat())
-})
-
-petsRouter.delete('/', json, (req, res) => {
+router.delete('/', json, (req, res) => {
   const { type } = req.body
   try {
     Pets.dequeue(type)
@@ -25,4 +21,4 @@ petsRouter.delete('/', json, (req, res) => {
   return res.status(202).send()
 })
 
-module.exports = petsRouter
+module.exports = router

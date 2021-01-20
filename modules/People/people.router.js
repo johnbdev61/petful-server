@@ -6,23 +6,13 @@ const People = require('./people.service')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  const adopters = People.get()
-  if (!adopters) {
-    return res
-      .status(400)
-      .json({ error: 'There is nobody in line.' })
-  }
-  return res.json(adopters)
+  res.json(People.get())
 })
 
 router.post('/', json, (req, res) => {
-  const name = req.body.name
-  const adopters = People.enqueue(name)
-  if (name == null) {
-    return res
-      .status(400)
-      .json({ error: 'Name is required' })
-  }
+  const { person } = req.body
+  People.enqueue(person)
+  res.status(201).json(People.get())
 })
 
 module.exports = router

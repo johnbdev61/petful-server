@@ -15,19 +15,14 @@ store.dogs.forEach((dog) => pets.dogs.enqueue(dog))
 // --------------------
 
 module.exports = {
-  getCat() {
+  get() {
     let result = {}
     result.cat = pets.cats.show()
+    result.dog = pets.dogs.show()
     if (!result.cat) {
       store.cats.forEach((cat) => pets.cats.enqueue(cat))
       result.cat = pets.cats.show()
     }
-    return result
-  },
-
-  getDog() {
-    let result = {}
-    result.dog = pets.dogs.show()
     if (!result.dog) {
       store.dogs.forEach((dog) => pets.dogs.enqueue(dog))
       result.dog = pets.dogs.show()
