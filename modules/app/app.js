@@ -1,19 +1,12 @@
 const express = require('express')
-const morgan = require('morgan')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 
 const app = express()
 
-app.use(morgan('common'))
 app.use(cors())
-app.use(bodyParser.json({ strict: false }))
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Petful API')
-})
-
-app.use('/people', require('../people/people.router'))
-app.use('/pets', require('../pets/pets.router'))
+app.use('/users', require('../people/people.router'))
+app.use('/cats', require('../pets/cat.router'))
+app.use('/dogs', require('../pets/dog.router'))
 
 module.exports = app

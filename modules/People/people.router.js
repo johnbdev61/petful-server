@@ -1,18 +1,33 @@
 const express = require('express')
-const json = require('body-parser').json()
+const jsonBodyParser = express.json()
+const people = require('../..//store/people.store')
+const Queue = require('../queue/Queue')
 
-const People = require('./people.service')
+const peopleRouter = express.Router()
+const peopleQueue = new Queue() //TODO: axe this if it does nothing
 
-const router = express.Router()
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1))
+    var temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+}
 
-router.get('/', (req, res) => {
-  res.json(People.get())
-})
+peopleRouter
+  .route('/')
+  .get((req, res, next) => {
+    shuffleArray(people)
+    res.status(200).json(people)
+  })
+  .post(jsonBodyParser, (req, res, next) => {
+    if (!req.body.name) {
+      res.status(400).json('Name not included in body')
+    }
+    let newPerson = req.body.name
+    people.push(newPerson)
+    res.status(201).json(newPerson)
+  })
 
-router.post('/', json, (req, res) => {
-  const { person } = req.body
-  People.enqueue(person)
-  res.status(201).json(People.get())
-})
-
-module.exports = router
+module.exports = peopleRouter
