@@ -22,10 +22,11 @@ peopleRouter
     res.status(200).json(people)
   })
   .post(jsonBodyParser, (req, res, next) => {
-    if (!req.body.name) {
-      res.status(400).json('Name not included in body')
+    console.log(req.body)
+    if (!req.body.person) {
+      res.status(400).json('Must enter name')
     }
-    let newPerson = req.body.name
+    let newPerson = req.body.person
     people.push(newPerson)
     res.status(201).json(newPerson)
   })
