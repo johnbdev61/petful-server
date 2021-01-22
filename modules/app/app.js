@@ -10,9 +10,9 @@ app.use(
   })
 )
 
-app.use('/people', require('../people/people.router'))
-app.use('/cats', require('../pets/cat.router'))
-app.use('/dogs', require('../pets/dog.router'))
+app.use('/people', require('../people/people.router.js'))
+app.use('/cats', require('../pets/cat.router.js'))
+app.use('/dogs', require('../pets/dog.router.js'))
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Petful API!')
