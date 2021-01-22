@@ -3,7 +3,9 @@ const cors = require('cors')
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: CLIENT_ORIGIN
+}))
 
 app.use('/people', require('../people/people.router'))
 app.use('/cats', require('../pets/cat.router'))
