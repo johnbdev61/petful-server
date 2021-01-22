@@ -1,7 +1,7 @@
 const cats = [
   {
     imageURL:
-      'https://static.wikia.nocookie.net/thesabrinatheteenagewitch/images/e/e2/Salem.png/revision/latest/scale-to-width-down/300?cb=20180330034126',
+      'https://www.thesprucepets.com/thmb/-UHyBMUvHaMyFuCPWRnoYgLhVgA=/2304x1296/smart/filters:no_upscale()/close-up-of-cat-lying-on-floor-at-home-908763830-1d61bee6961b45ee8a55bdfa5da1ebb3.jpg',
     name: 'Salem Saberhagen',
     age: 500,
     gender: 'Male',
@@ -126,7 +126,7 @@ const cats = [
     gender: 'Male',
     imageURL:
       'https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    name: 'Vince the Pince',
+    name: 'Vince the Prince',
     story: 'Found in neighborhood',
   },
 ]

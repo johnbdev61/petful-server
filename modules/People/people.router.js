@@ -1,10 +1,8 @@
 const express = require('express')
 const jsonBodyParser = express.json()
 const people = require('../..//store/people.store')
-const Queue = require('../queue/Queue')
 
 const peopleRouter = express.Router()
-const peopleQueue = new Queue() //TODO: axe this if it does nothing
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -22,7 +20,6 @@ peopleRouter
     res.status(200).json(people)
   })
   .post(jsonBodyParser, (req, res, next) => {
-    console.log(req.body)
     if (!req.body.person) {
       res.status(400).json('Must enter name')
     }
